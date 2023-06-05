@@ -95,3 +95,27 @@ class Product:
 
         return total_price
 
+
+class NonStockedProduct(Product):
+    def __init__(self, name, price):
+        super().__init__(name, price, 0)
+
+    def show(self):
+        return f"{self.name}, Price: {self.price}, Quantity: Not Applicable"
+
+
+class LimitedProduct(Product):
+    def __init__(self, name, price, quantity, maximum):
+        super().__init__(name, price, quantity)
+        self.maximum = maximum
+
+    def show(self):
+        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity} (Max Quantity: {self.maximum})"
+
+    def buy(self, quantity):
+        try:
+            if quantity > self.maximum:
+                raise Exception("Maximum quantity exceeded")
+            return super().buy(quantity)
+        except Exception as e:
+            print(f"Failed to order product {self.name}: {str(e)}")
