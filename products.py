@@ -1,5 +1,3 @@
-
-
 class Product:
     def __init__(self, name, price, quantity):
         """
@@ -15,11 +13,29 @@ class Product:
         """
         if not name or price < 0 or quantity < 0:
             raise Exception("Invalid input")
-
+        self.promotion = None
         self.name = name
         self.price = price
         self.quantity = quantity
         self.active = True
+
+    def get_promotion(self):
+        """
+         Returns the promotion of the product.
+
+        Returns:
+         int: The promotion of the product.
+         """
+        return self.promotion
+
+    def set_promotion(self, promotion):
+        """
+                Sets the promotion of the product.
+
+                Args:
+                     The new promotion of the product.
+        """
+        self.promotion = promotion
 
     def get_quantity(self):
         """
@@ -63,37 +79,14 @@ class Product:
         self.active = False
 
     def show(self):
-        """
-        Returns a string representation of the product.
-
-        Returns:
-            str: The string representation of the product.
-        """
-        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}"
+        promotion_info = f" (Promotion: {self.promotion.name})" if self.promotion else ""
+        return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}{promotion_info}"
 
     def buy(self, quantity):
-        """
-        Buys a certain quantity of the product.
-
-        Args:
-            quantity (int): The quantity to buy.
-
-        Raises:
-            Exception: If the quantity to buy exceeds the available quantity.
-
-        Returns:
-            float: The total price of the purchase.
-        """
-        if quantity > self.quantity:
-            raise Exception("Insufficient quantity")
-
-        total_price = self.price * quantity
-        self.quantity -= quantity
-
-        if self.quantity == 0:
-            self.deactivate()
-
-        return total_price
+        if self.promotion:
+            return self.promotion.apply_promotion(self, quantity)
+        else:
+            return self.price * quantity
 
 
 class NonStockedProduct(Product):
