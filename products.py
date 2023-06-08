@@ -83,9 +83,13 @@ class Product:
         return f"{self.name}, Price: {self.price}, Quantity: {self.quantity}{promotion_info}"
 
     def buy(self, quantity):
+        if quantity > self.quantity:
+            raise Exception("Insufficient quantity available")
+
         if self.promotion:
             return self.promotion.apply_promotion(self, quantity)
         else:
+            self.quantity -= quantity
             return self.price * quantity
 
 

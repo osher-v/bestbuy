@@ -20,9 +20,9 @@ def start(store_obj):
         choice = input("Enter your choice (1-4): ")
 
         if choice == "1":
-            products = store_obj.get_all_products()
+            products1 = store_obj.get_all_products()
             print("--- Products in Store ---")
-            for product in products:
+            for product in products1:
                 print(product.show())
 
         elif choice == "2":
@@ -30,9 +30,9 @@ def start(store_obj):
             print(f"Total amount in store: {total_quantity}")
 
         elif choice == "3":
-            products = store_obj.get_all_products()
+            products1 = store_obj.get_all_products()
             print("--- Products in Store ---")
-            for i, product in enumerate(products):
+            for i, product in enumerate(products1):
                 print(f"{i + 1}. {product.show()}")
 
             shopping_list = []
@@ -43,9 +43,9 @@ def start(store_obj):
 
                 try:
                     product_index = int(product_choice) - 1
-                    if 0 <= product_index < len(products):
+                    if 0 <= product_index < len(products1):
                         quantity = int(input("Enter the quantity: "))
-                        shopping_list.append((products[product_index], quantity))
+                        shopping_list.append((products1[product_index], quantity))
                     else:
                         print("Invalid product number")
                 except ValueError:

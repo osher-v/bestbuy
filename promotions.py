@@ -1,4 +1,3 @@
-import rom as rom
 from abc import ABC, abstractmethod
 
 
